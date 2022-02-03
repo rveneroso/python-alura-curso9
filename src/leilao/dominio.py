@@ -15,6 +15,8 @@ class Usuario:
         return self.__carteira
 
     def propoe_lance(self, leilao, valor):
+        if(valor > self.__carteira):
+            raise ValueError('O valor do lance não pode ser superior ao saldo da carteira ')
         lance = Lance(self, valor)
         leilao.registra_lance(lance)
 
