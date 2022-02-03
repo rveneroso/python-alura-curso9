@@ -24,11 +24,12 @@ class Leilao:
         self.menor_lance = sys.float_info.max
 
     def registra_lance(self, lance: Lance):
-        self.__lances.append(lance)
-        if (lance.valor > self.maior_lance):
-            self.maior_lance = lance.valor
-        if (lance.valor < self.menor_lance):
-            self.menor_lance = lance.valor
+        if not self.__lances or self.__lances[-1].usuario != lance.usuario:
+            self.__lances.append(lance)
+            if (lance.valor > self.maior_lance):
+                self.maior_lance = lance.valor
+            if (lance.valor < self.menor_lance):
+                self.menor_lance = lance.valor
 
     @property
     def lances(self):
