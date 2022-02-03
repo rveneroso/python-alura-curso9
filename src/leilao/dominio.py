@@ -33,5 +33,15 @@ class Leilao:
     @property
     def lances(self):
         # Com a sintaxe [:] o Python não irá retornar o objeto lances original da classe Leilao.
-        # Ele irá devolver uma cópia da lista (shallow copy).
+        # Ele irá devolver uma cópia da lista (shallow copy). A sintaxe [:] nada mais é do que o
+        # slicing da lista no qual estão sendo omitidos o elemento inicial e o elemento final.
+        # A cópia rasa também é obtida quando se usa o método copy() sobre uma lista.
+        # Para realizarmos uma deep copy (cópia profunda) devemos usar o módulo copy que é nativo
+        # do Python:
+        '''
+        from copy import deepcopy
+
+        livros_yan = [[‘Banco MySQL’], [‘Certificação PHP’, ‘TDD PHP’], [‘HTML5 e CSS3’]]
+        livros_pedro = deepcopy(livros_yan)
+        '''
         return self.__lances[:]
