@@ -15,8 +15,8 @@ class TestAvaliador(TestCase):
         yuri = Usuario('Yuri')
         lance_do_yuri = Lance(yuri, 100.0)
 
-        self.leilao.lances.append(lance_do_yuri)
-        self.leilao.lances.append(self.lance_do_gui)
+        self.leilao.registra_lance(lance_do_yuri)
+        self.leilao.registra_lance(self.lance_do_gui)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
@@ -31,8 +31,8 @@ class TestAvaliador(TestCase):
         yuri = Usuario('Yuri')
         lance_do_yuri = Lance(yuri, 100.0)
 
-        self.leilao.lances.append(self.lance_do_gui)
-        self.leilao.lances.append(lance_do_yuri)
+        self.leilao.registra_lance(self.lance_do_gui)
+        self.leilao.registra_lance(lance_do_yuri)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
@@ -44,7 +44,7 @@ class TestAvaliador(TestCase):
         self.assertEqual(maior_valor_esperado, avaliador.maior_lance)
 
     def test_deve_retornar_o_mesmo_valor_para_o_maior_e_menor_lance_quando_leilao_tiver_um_lance(self):
-        self.leilao.lances.append(self.lance_do_gui)
+        self.leilao.registra_lance(self.lance_do_gui)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
@@ -61,9 +61,9 @@ class TestAvaliador(TestCase):
 
         leilao = Leilao('Celular')
 
-        leilao.lances.append(lance_do_yuri)
-        leilao.lances.append(self.lance_do_gui)
-        leilao.lances.append(lance_do_vini)
+        leilao.registra_lance(lance_do_yuri)
+        leilao.registra_lance(self.lance_do_gui)
+        leilao.registra_lance(lance_do_vini)
 
         avaliador = Avaliador()
         avaliador.avalia(leilao)

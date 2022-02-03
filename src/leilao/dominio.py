@@ -23,9 +23,14 @@ class Leilao:
         self.descricao = descricao
         self.__lances = []
 
+    def registra_lance(self, lance: Lance):
+        self.__lances.append(lance)
+
     @property
     def lances(self):
-        return self.__lances
+        # Com a sintaxe [:] o Python não irá retornar o objeto lances original da classe Leilao.
+        # Ele irá devolver uma cópia da lista (shallow copy).
+        return self.__lances[:]
 
 class Avaliador:
 
