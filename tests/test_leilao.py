@@ -1,5 +1,7 @@
 from unittest import TestCase
 from src.leilao.dominio import Usuario, Lance, Leilao
+from src.leilao.excecoes import LanceInvalido
+
 
 class TestLeilao(TestCase):
 
@@ -22,7 +24,7 @@ class TestLeilao(TestCase):
         self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
     def test_nao_deve_permitir_propor_um_lance_em_ordem_decrescente_de_valor(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             yuri = Usuario('Yuri', 500.0)
             lance_do_yuri = Lance(yuri, 100.0)
 
@@ -73,9 +75,17 @@ class TestLeilao(TestCase):
     def test_nao_deve_permitir_propor_lance_caso_o_usuario_seja_o_mesmo(self):
         lance_do_gui200 = Lance(self.gui, 200.0)
         # Essa sintaxe faz a validação do caso de uso com base na exceção. Basicamente ela diz que
-        # o código dentro do with deve levantar uma exceção do tipo ValueError. Se isso ocorrer, o
+        # o código dentro do with deve levantar uma exceção do tipo LanceInvalido. Se isso ocorrer, o
         # teste é considerado válido. Por essa razão foram removidas a validação baseada na
         # quantidade de lances do leilão.
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             self.leilao.registra_lance(self.lance_do_gui)
             self.leilao.registra_lance(lance_do_gui200)
+
+    def test_excecao(self):
+        usu1 = Usuario('Usuário Teste',100.0)
+        usu2 = Usuario('Segundo usuário',200.0)
+        lance1 = Lance(usu1, 100.0)
+        self.leilao.registra_lance(lance1)
+        lance2 = Lance(usu2, 500)
+        self.leilao.registra_lance(lance2)

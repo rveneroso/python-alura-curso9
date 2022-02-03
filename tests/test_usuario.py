@@ -3,6 +3,9 @@ import pytest
 
 # Python criará os objetos usuario_teste e leilao_teste sob demanda.Eles não serão instanciados a menos que sejam passados como parâmetros
 # para algum método da classe de testes.
+from src.leilao.excecoes import LanceInvalido
+
+
 @pytest.fixture
 def usuario_teste():
     return Usuario('Usuario Teste', 100.0)
@@ -27,5 +30,5 @@ def test_deve_permitir_propor_lance_quando_o_valor_eh_igual_que_o_valor_da_carte
     assert usuario_teste.carteira == 0
 
 def test_nao_deve_permitir_propor_lance_quando_o_valor_eh_maior_que_o_valor_da_carteira(usuario_teste, leilao_teste):
-    with pytest.raises(ValueError):
+    with pytest.raises(LanceInvalido):
         usuario_teste.propoe_lance(leilao_teste, 200.0)
